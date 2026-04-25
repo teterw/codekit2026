@@ -20,6 +20,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
 
   return (
     <motion.div
+      className="property-card"
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       animate={{
@@ -41,6 +42,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
     >
       {/* Image with zoom */}
       <Link
+        className="property-card-image"
         href="/detail"
         aria-label={`View details for ${property.name}`}
         style={{
@@ -106,7 +108,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
       </Link>
 
       {/* Middle content */}
-      <div style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
+      <div className="property-card-body" style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
             <Link
@@ -159,7 +161,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
       </div>
 
       {/* Right — rating + price */}
-      <div style={{ padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-end", flexShrink: 0, minWidth: 190 }}>
+      <div className="property-card-price" style={{ padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-end", flexShrink: 0, minWidth: 190 }}>
         <RatingBadge
           score={property.ratingScore}
           label={property.ratingLabel}

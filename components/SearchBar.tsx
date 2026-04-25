@@ -110,6 +110,7 @@ export default function SearchBar({
       }}
     >
       <div
+        className="search-bar-shell"
         style={{
           maxWidth: 1280,
           margin: "0 auto",
@@ -123,7 +124,7 @@ export default function SearchBar({
         }}
       >
         {/* Destination */}
-        <div ref={destRef} style={{ ...fieldStyle, flex: "1 1 0", minWidth: 280 }} onClick={() => setDestOpen((o) => !o)}>
+        <div className="search-bar-field" ref={destRef} style={{ ...fieldStyle, flex: "1 1 0", minWidth: 280 }} onClick={() => setDestOpen((o) => !o)}>
           <MapPin size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
             <p style={labelStyle}>Destination</p>
@@ -173,7 +174,7 @@ export default function SearchBar({
         </div>
 
         {/* Dates */}
-        <div ref={dateRef} style={fieldStyle} onClick={() => setDateOpen((o) => !o)}>
+        <div className="search-bar-field" ref={dateRef} style={fieldStyle} onClick={() => setDateOpen((o) => !o)}>
           <Calendar size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Dates</p>
@@ -220,7 +221,7 @@ export default function SearchBar({
         </div>
 
         {/* Travelers */}
-        <div ref={travelRef} style={fieldStyle} onClick={() => setTravelOpen((o) => !o)}>
+        <div className="search-bar-field" ref={travelRef} style={fieldStyle} onClick={() => setTravelOpen((o) => !o)}>
           <Users size={16} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Travelers</p>
@@ -301,6 +302,7 @@ export default function SearchBar({
 
         {/* Update Search */}
         <motion.button
+          className="search-bar-submit"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onSearch}

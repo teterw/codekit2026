@@ -4,7 +4,6 @@ import {
   Calendar,
   CalendarCheck,
   Headset,
-  Heart,
   Mail,
   MapPin,
   Search,
@@ -195,7 +194,11 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {destinations.map((destination, index) => (
               <article key={destination.name}>
-                <div className="relative h-[376px] overflow-hidden">
+                <Link
+                  href="/search"
+                  aria-label={`Search hotels in ${destination.name}`}
+                  className="relative block h-[376px] overflow-hidden"
+                >
                   <Image
                     src={destination.image}
                     alt={destination.name}
@@ -209,7 +212,7 @@ export default function Home() {
                       {destination.badge}
                     </span>
                   ) : null}
-                </div>
+                </Link>
                 <h3 className="mt-5 text-xl font-bold leading-7 text-[#191C22]">
                   {destination.name}
                 </h3>
@@ -225,39 +228,46 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-[1200px] px-4 pb-32 sm:px-6 xl:px-0">
-          <div className="relative flex min-h-[400px] items-center justify-between overflow-hidden rounded-3xl bg-[#B61B4A] px-12 py-10">
-            <div className="relative z-10 max-w-[576px]">
+          <div className="relative min-h-[400px] overflow-hidden rounded-3xl bg-[#B61B4A] px-12 py-10">
+            <div className="relative z-10 flex min-h-[320px] max-w-[576px] flex-col justify-center">
               <h2 className="text-[48px] font-extrabold leading-none text-[#FFFFFF]">
                 Summer Sales: Up to
                 <br />
                 40% Off!
               </h2>
-              <p className="mt-4 max-w-[540px] text-lg leading-7 text-[#FFFFFF]/80">
+              <p className="mt-5 max-w-[540px] text-lg leading-7 text-[#FFFFFF]/80">
                 Exclusive member deals on flights and luxury hotels for your next
                 summer getaway. Valid until Oct 31st.
               </p>
               <div className="mt-8 flex gap-4">
-                <button className="h-14 rounded-xl bg-[#FFFFFF] px-8 text-lg font-bold text-[#B61B4A]">
+                <button className="h-14 min-w-[184px] rounded-xl bg-[#FFFFFF] px-8 text-lg font-bold text-[#B61B4A]">
                   Explore Deals
                 </button>
-                <button className="h-14 rounded-xl border-2 border-[#FFFFFF] px-8 text-lg font-bold text-[#FFFFFF]">
+                <button className="h-14 min-w-[220px] rounded-xl border-2 border-[#FFFFFF] px-8 text-lg font-bold text-[#FFFFFF]">
                   Join Club T-Goda
                 </button>
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-1/2 top-0 w-1/2 opacity-20">
-              <Heart className="absolute left-8 top-8 h-[250px] w-[250px] rotate-[-45deg] fill-[#191C22] text-[#191C22]" />
+            <div className="pointer-events-none absolute left-[50.5%] top-0 z-0 h-[280px] w-[280px] opacity-20">
+              <Image
+                src="/icon/Icon.png"
+                alt=""
+                width={280}
+                height={280}
+                sizes="280px"
+                className="h-[280px] w-[280px] object-contain"
+                aria-hidden="true"
+              />
             </div>
 
-            <div className="relative z-10 hidden w-[320px] rotate-3 overflow-hidden rounded-2xl shadow-2xl lg:block">
+            <div className="absolute right-10 top-16 z-10 hidden h-[260px] w-[360px] rotate-3 overflow-hidden rounded-2xl shadow-2xl lg:block">
               <Image
                 src="/image/Swimming pool.png"
                 alt="Luxury resort pool"
-                width={320}
-                height={320}
-                sizes="320px"
-                className="h-[320px] w-[320px] object-cover"
+                fill
+                sizes="360px"
+                className="object-cover"
               />
             </div>
           </div>

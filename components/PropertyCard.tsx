@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
@@ -39,7 +40,20 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
       }}
     >
       {/* Image with zoom */}
-      <div style={{ width: 256, flexShrink: 0, position: "relative", overflow: "hidden" }}>
+      <Link
+        href="/detail"
+        aria-label={`View details for ${property.name}`}
+        style={{
+          width: 256,
+          flexShrink: 0,
+          position: "relative",
+          overflow: "hidden",
+          display: "block",
+          color: "inherit",
+          textDecoration: "none",
+          cursor: "pointer",
+        }}
+      >
         <motion.div
           animate={{ scale: hovered ? 1.07 : 1 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
@@ -89,20 +103,25 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
             </span>
           </motion.div>
         )}
-      </div>
+      </Link>
 
       {/* Middle content */}
       <div style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.3 }}
-              style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px" }}
+            <Link
+              href="/detail"
+              style={{ color: "inherit", textDecoration: "none" }}
             >
-              {property.name}
-            </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05, duration: 0.3 }}
+                style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px", cursor: "pointer" }}
+              >
+                {property.name}
+              </motion.span>
+            </Link>
             <RatingStars count={property.stars} starSize={10} />
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>

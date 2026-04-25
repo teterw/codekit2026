@@ -27,14 +27,14 @@ export default function Navbar() {
           {/* Nav Links */}
           <nav className="flex justify-start items-center gap-6">
             {navLinks.map(({ label, href }) => {
-              const isActive = pathname === href;
+              const isActive = pathname === href || href === "/hotels";
               return (
                 <Link
                   key={href}
                   href={href}
                   className={`text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5 whitespace-nowrap transition-all duration-200 ${
                     isActive
-                      ? "text-white bg-blue-600 border-b-2 border-blue-600 -translate-y-1"
+                      ? "text-blue-600 bg-white border-b-2 border-blue-600 -translate-y-1"
                       : "text-slate-600 border-b-2 border-transparent hover:text-blue-600 hover:-translate-y-1"
                   }`}
                 >

@@ -10,8 +10,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "T-Goda – Escape to Your Perfect Paradise",
-  description: "Unlock exclusive prices on over 2 million properties and flights across the globe.",
+  title: "Hotel Search — Bali, Indonesia",
+  description: "Find the best hotels in Bali",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

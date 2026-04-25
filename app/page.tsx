@@ -1,102 +1,71 @@
-import { Wifi, Waves, Coffee, Umbrella, Leaf, Plane, Dumbbell } from "lucide-react";
-import SearchBar from "./components/SearchBar";
-import FilterSidebar from "./components/FilterSidebar";
-import ResultsHeader from "./components/ResultsHeader";
-import FlashDealsCard from "./components/FlashDealsCard";
-import PropertyCard from "./components/PropertyCard";
-import Pagination from "./components/Pagination";
-
-const properties = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=512&h=400&fit=crop&q=80",
-    topBadge: "Top Choice",
-    name: "The Azure Serenity Resort",
-    location: "Ubud, Bali",
-    locationDetail: "2.5 km from center",
-    stars: 5,
-    tags: [
-      { icon: <Wifi size={11} />, label: "Free Wi-Fi" },
-      { icon: <Waves size={11} />, label: "Pool" },
-      { icon: <Coffee size={11} />, label: "Breakfast" },
-    ],
-    note: "Only 2 rooms left at this price!",
-    noteColor: "#B61B4A",
-    ratingScore: "8.9",
-    ratingLabel: "Excellent",
-    ratingCount: "1,240",
-    oldPrice: "$320",
-    price: "$284",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=512&h=400&fit=crop&q=80",
-    name: "Lumina Beach Villas",
-    location: "Seminyak, Bali",
-    locationDetail: "Beachfront",
-    stars: 4,
-    tags: [
-      { icon: <Umbrella size={11} />, label: "Private Beach" },
-      { icon: <Leaf size={11} />, label: "Spa" },
-    ],
-    note: "Free cancellation before Oct 10",
-    noteColor: "#16A34A",
-    ratingScore: "9.2",
-    ratingLabel: "Exceptional",
-    ratingCount: "856",
-    price: "$415",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=512&h=400&fit=crop&q=80",
-    name: "The Palms Sanctuary",
-    location: "Nusa Dua, Bali",
-    locationDetail: "0.8 km from beach",
-    stars: 4,
-    tags: [
-      { icon: <Plane size={11} />, label: "Airport Shuttle" },
-      { icon: <Dumbbell size={11} />, label: "Gym" },
-    ],
-    note: "Breakfast + Dinner deal available",
-    noteColor: "#D97706",
-    ratingScore: "8.4",
-    ratingLabel: "Great",
-    ratingCount: "2,102",
-    price: "$189",
-  },
-];
+import Image from "next/image";
+import Navbar from '@/components/Navbar';
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div style={{ minHeight: "100vh", background: "#F8F9FA" }}>
-      <SearchBar />
-
-      {/* Main content */}
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          paddingLeft: 24,
-          paddingRight: 24,
-          paddingTop: 32,
-          paddingBottom: 32,
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 24,
-        }}
-      >
-        <FilterSidebar />
-
-        {/* Results column */}
-        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
-          <ResultsHeader />
-          <FlashDealsCard />
-          {properties.map((p) => (
-            <PropertyCard key={p.name} {...p} />
-          ))}
-          <Pagination />
+    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <Navbar />
+      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+        <Image
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={100}
+          height={20}
+          priority
+        />
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+            To get started, edit the page.tsx file.
+          </h1>
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+            Looking for a starting point or more instructions? Head over to{" "}
+            <a
+              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Templates
+            </a>{" "}
+            or the{" "}
+            <a
+              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Learning
+            </a>{" "}
+            center.
+          </p>
         </div>
-      </div>
+        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <a
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              className="dark:invert"
+              src="/vercel.svg"
+              alt="Vercel logomark"
+              width={16}
+              height={16}
+            />
+            Deploy Now
+          </a>
+          <a
+            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
+            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Documentation
+          </a>
+        </div>
+
+      </main>
+              <Footer />
     </div>
+    
   );
 }

@@ -174,7 +174,7 @@ function StarRating({ count, size = 16 }: { count: number; size?: number }) {
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
 export default function HotelDetailPage() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
@@ -226,7 +226,7 @@ export default function HotelDetailPage() {
                 <span className="text-sm leading-6" style={{ color: "#424753" }}>
                   Elounda Bay, Crete, 72053, Greece
                 </span>
-                <Link href="#" className="text-sm font-semibold leading-6 pl-1" style={{ color: "#005CBD" }}>
+                <Link href="#hotel-map" className="text-sm font-semibold leading-6 pl-1" style={{ color: "#005CBD" }}>
                   Show on map
                 </Link>
               </div>
@@ -350,11 +350,20 @@ export default function HotelDetailPage() {
 
               {/* Map Card */}
               <div
+                id="hotel-map"
                 className="w-full rounded-2xl overflow-hidden bg-white"
                 style={{ boxShadow: "0px 4px 12px rgba(0,0,0,0.05)", border: "1px solid rgba(194,198,213,0.30)" }}
               >
                 <div className="relative w-full h-48">
-                  <Image src="https://placehold.co/377x192" alt="Hotel location map" fill className="object-cover" />
+                  <iframe
+                    title="Hotel location map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31446.864463690514!2d25.724703921748934!3d35.32117885408508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1490ec46f66d8aab%3A0xc5e80e89728f739e!2sElounda%2C%20Greece!5e0!3m2!1sen!2sus!4v1710000000000"
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    allow="geolocation; fullscreen; accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
                 <div className="p-4 flex flex-col gap-0.5">
                   <span className="text-sm font-medium" style={{ color: "#191C22" }}>Near Spinalonga Island</span>

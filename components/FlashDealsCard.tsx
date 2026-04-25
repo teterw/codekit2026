@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Flame } from "lucide-react";
 import DealRow from "./DealRow";
+import { AnimatedTime } from "./AnimatedDigit";
 
 const deals = [
   {
@@ -101,20 +102,12 @@ export default function FlashDealsCard() {
                 borderRadius: 6,
               }}
             >
-              {[h, ":", m, ":", s].map((seg, i) => (
-                <span
-                  key={i}
-                  style={{
-                    fontSize: 14,
-                    color: "white",
-                    fontWeight: 700,
-                    lineHeight: "20px",
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                  }}
-                >
-                  {seg}
-                </span>
-              ))}
+              <AnimatedTime
+                h={h}
+                m={m}
+                s={s}
+                style={{ fontSize: 14, color: "white", fontWeight: 700, lineHeight: "20px" }}
+              />
             </div>
           </div>
         </div>

@@ -318,6 +318,7 @@ export default function SearchPage() {
               ) : (
                 <motion.div
                   key="results"
+                  layout
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -326,8 +327,11 @@ export default function SearchPage() {
                   {pageProperties.map((property, i) => (
                     <motion.div
                       key={property.id}
+                      layout
                       initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      viewport={{ once: true, amount: 0.1 }}
                       transition={{ delay: i * 0.06, type: "spring", stiffness: 300, damping: 28 }}
                     >
                       <PropertyCard
@@ -391,13 +395,23 @@ export default function SearchPage() {
           >
             <Heart size={14} color="#B61B4A" fill="#B61B4A" />
             <span style={{ fontSize: 13, fontWeight: 600, color: "#191C22" }}>Saved</span>
-            <span style={{
-              paddingLeft: 6, paddingRight: 6, paddingTop: 1, paddingBottom: 1,
-              background: "#B61B4A", borderRadius: 9999,
-              fontSize: 11, color: "white", fontWeight: 700,
-            }}>
-              {wishlist.count}
-            </span>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={wishlist.count}
+                initial={{ scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.6, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                style={{
+                  display: "inline-block",
+                  paddingLeft: 6, paddingRight: 6, paddingTop: 1, paddingBottom: 1,
+                  background: "#B61B4A", borderRadius: 9999,
+                  fontSize: 11, color: "white", fontWeight: 700,
+                }}
+              >
+                {wishlist.count}
+              </motion.span>
+            </AnimatePresence>
           </motion.button>
         )}
       </AnimatePresence>

@@ -112,12 +112,13 @@ export default function WishlistDrawer({ open, onClose, properties, onRemove, on
                   </p>
                 </motion.div>
               ) : (
-                properties.map((p, i) => (
+                <AnimatePresence initial={false}>
+                {properties.map((p, i) => (
                   <motion.div
                     key={p.id}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
+                    exit={{ opacity: 0, x: 20, height: 0, marginBottom: -8 }}
                     transition={{ delay: i * 0.04 }}
                     style={{
                       display: "flex",
@@ -174,7 +175,8 @@ export default function WishlistDrawer({ open, onClose, properties, onRemove, on
                       <X size={13} color="#9CA3AF" />
                     </button>
                   </motion.div>
-                ))
+                ))}
+                </AnimatePresence>
               )}
             </div>
           </motion.div>

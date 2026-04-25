@@ -44,7 +44,11 @@ export default function PropertyCard({
       onHoverEnd={() => setHovered(false)}
       animate={{
         y: hovered ? -4 : 0,
-        boxShadow: hovered
+        boxShadow: isCompared
+          ? hovered
+            ? "inset 0 0 0 2px #005CBD, 0px 16px 36px rgba(0,92,189,0.18), 0px 4px 10px rgba(0,0,0,0.06)"
+            : "inset 0 0 0 2px #005CBD, 0px 4px 12px rgba(0,92,189,0.10)"
+          : hovered
           ? "0px 16px 36px rgba(0,0,0,0.11), 0px 4px 10px rgba(0,0,0,0.06)"
           : "0px 4px 12px rgba(0,0,0,0.05)",
       }}
@@ -54,7 +58,7 @@ export default function PropertyCard({
         display: "flex",
         background: "white",
         borderRadius: 12,
-        outline: "1px rgba(194, 198, 213, 0.20) solid",
+        outline: isCompared ? "none" : "1px rgba(194, 198, 213, 0.20) solid",
         outlineOffset: -1,
         overflow: "hidden",
         cursor: "pointer",
@@ -220,11 +224,35 @@ export default function PropertyCard({
         style={{ padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-end", flexShrink: 0, minWidth: 190 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <RatingBadge
-          score={property.ratingScore}
-          label={property.ratingLabel}
-          count={property.ratingCount}
-        />
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+          <AnimatePresence>
+            {isCompared && (
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.88 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.88 }}
+                transition={{ type: "spring", stiffness: 400, damping: 28 }}
+                style={{
+                  display: "flex", alignItems: "center", gap: 4,
+                  paddingLeft: 8, paddingRight: 8, paddingTop: 3, paddingBottom: 3,
+                  background: "#EEF3FF", borderRadius: 9999,
+                  border: "1px solid rgba(0,92,189,0.30)",
+                }}
+              >
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                  <path d="M1.5 4L3.2 5.7L6.5 2.3" stroke="#005CBD" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span style={{ fontSize: 10, fontWeight: 600, color: "#005CBD" }}>Comparing</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <RatingBadge
+            score={property.ratingScore}
+            label={property.ratingLabel}
+            count={property.ratingCount}
+            animateOnMount={false}
+          />
+        </div>
 
         <div style={{ textAlign: "right" }}>
           {property.oldPrice ? (

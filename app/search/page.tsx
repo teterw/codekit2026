@@ -1,4 +1,6 @@
 import { Wifi, Waves, Coffee, Umbrella, Leaf, Plane, Dumbbell } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import FilterSidebar from "@/components/FilterSidebar";
 import ResultsHeader from "@/components/ResultsHeader";
@@ -68,34 +70,38 @@ const properties = [
 export default function Home() {
   return (
     <div style={{ minHeight: "100vh", background: "#F8F9FA" }}>
-      <SearchBar />
+      <Navbar />
+      <div style={{ paddingTop: 64 }}>
+        <SearchBar />
 
-      {/* Main content */}
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          paddingLeft: 24,
-          paddingRight: 24,
-          paddingTop: 32,
-          paddingBottom: 32,
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 24,
-        }}
-      >
-        <FilterSidebar />
+        {/* Main content */}
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: "0 auto",
+            paddingLeft: 24,
+            paddingRight: 24,
+            paddingTop: 32,
+            paddingBottom: 32,
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 24,
+          }}
+        >
+          <FilterSidebar />
 
-        {/* Results column */}
-        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
-          <ResultsHeader />
-          <FlashDealsCard />
-          {properties.map((p) => (
-            <PropertyCard key={p.name} {...p} />
-          ))}
-          <Pagination />
+          {/* Results column */}
+          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+            <ResultsHeader />
+            <FlashDealsCard />
+            {properties.map((p) => (
+              <PropertyCard key={p.name} {...p} />
+            ))}
+            <Pagination />
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

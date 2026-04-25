@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Flame } from "lucide-react";
 import DealRow from "./DealRow";
 
@@ -34,28 +37,33 @@ const deals = [
   },
 ];
 
+const INITIAL_SECONDS = 8 * 3600 + 45 * 60 + 12;
+
 export default function FlashDealsCard() {
+  const [seconds, setSeconds] = useState(INITIAL_SECONDS);
+
+  useEffect(() => {
+    const id = setInterval(() => setSeconds((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const h = pad(Math.floor(seconds / 3600));
+  const m = pad(Math.floor((seconds % 3600) / 60));
+  const s = pad(seconds % 60);
+
   return (
-    /* Gradient border wrapper */
     <div
       style={{
         padding: 4,
         background: "linear-gradient(146deg, #005CBD 0%, #004591 100%)",
         borderRadius: 16,
-        boxShadow:
-          "0px 8px 10px -6px rgba(0, 0, 0, 0.10), 0px 20px 25px -5px rgba(0, 0, 0, 0.10)",
-        outline: "1px rgba(0, 92, 189, 0.20) solid",
+        boxShadow: "0px 8px 10px -6px rgba(0,0,0,0.10), 0px 20px 25px -5px rgba(0,0,0,0.10)",
+        outline: "1px rgba(0,92,189,0.20) solid",
         outlineOffset: -1,
       }}
     >
-      {/* Inner white card */}
-      <div
-        style={{
-          background: "white",
-          borderRadius: 12,
-          overflow: "hidden",
-        }}
-      >
+      <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
         {/* Header strip */}
         <div
           style={{
@@ -69,26 +77,15 @@ export default function FlashDealsCard() {
             background: "rgba(182, 27, 74, 0.10)",
           }}
         >
-          {/* Title */}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Flame size={19} color="#B61B4A" />
-            <span
-              style={{
-                fontSize: 18,
-                color: "#B61B4A",
-                fontWeight: 400,
-                lineHeight: "28px",
-              }}
-            >
+            <span style={{ fontSize: 18, color: "#B61B4A", fontWeight: 400, lineHeight: "28px" }}>
               Flash Deals for You
             </span>
           </div>
 
-          {/* Timer */}
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span
-              style={{ fontSize: 12, color: "#424753", fontWeight: 500, lineHeight: "16.8px" }}
-            >
+            <span style={{ fontSize: 12, color: "#424753", fontWeight: 500, lineHeight: "16.8px" }}>
               Ends in:
             </span>
             <div
@@ -104,7 +101,7 @@ export default function FlashDealsCard() {
                 borderRadius: 6,
               }}
             >
-              {["08", ":", "45", ":", "12"].map((seg, i) => (
+              {[h, ":", m, ":", s].map((seg, i) => (
                 <span
                   key={i}
                   style={{
@@ -122,7 +119,6 @@ export default function FlashDealsCard() {
           </div>
         </div>
 
-        {/* Deal rows */}
         {deals.map((deal, i) => (
           <DealRow key={deal.name} {...deal} hasBorderTop={i > 0} />
         ))}

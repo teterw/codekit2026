@@ -182,6 +182,7 @@ export default function SearchPage() {
         />
 
         <div
+          className="search-results-layout"
           style={{
             maxWidth: 1280,
             margin: "0 auto",

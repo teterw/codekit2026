@@ -279,7 +279,7 @@ export default function FilterSidebar({ filters, onChange, onReset }: FilterSide
     filters.priceMax < PRICE_MAX;
 
   return (
-    <div style={{ width: 256, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+    <div className="filter-sidebar" style={{ width: 256, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16 }}>
       <div
         style={{
           background: "white",

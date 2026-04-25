@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Eye, CalendarCheck } from "lucide-react";
@@ -42,6 +43,7 @@ export default function PropertyCard({
 
   return (
     <motion.div
+      className="property-card"
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       animate={{
@@ -51,8 +53,8 @@ export default function PropertyCard({
             ? "inset 0 0 0 2px #005CBD, 0px 16px 36px rgba(0,92,189,0.18), 0px 4px 10px rgba(0,0,0,0.06)"
             : "inset 0 0 0 2px #005CBD, 0px 4px 12px rgba(0,92,189,0.10)"
           : hovered
-          ? "0px 16px 36px rgba(0,0,0,0.11), 0px 4px 10px rgba(0,0,0,0.06)"
-          : "0px 4px 12px rgba(0,0,0,0.05)",
+            ? "0px 16px 36px rgba(0,0,0,0.11), 0px 4px 10px rgba(0,0,0,0.06)"
+            : "0px 4px 12px rgba(0,0,0,0.05)",
       }}
       transition={{ type: "spring", stiffness: 360, damping: 28 }}
       onClick={onBook}
@@ -67,60 +69,79 @@ export default function PropertyCard({
         cursor: "pointer",
       }}
     >
-      {/* Image with overlays */}
-      <div style={{ width: isMobile ? "100%" : 256, height: isMobile ? 200 : "auto", flexShrink: 0, position: "relative", overflow: "hidden" }}>
-        <motion.div
-          animate={{ scale: hovered ? 1.07 : 1 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          style={{ width: "100%", height: "100%", minHeight: 200 }}
+      <div
+        className="property-card-image"
+        style={{
+          width: isMobile ? "100%" : 256,
+          height: isMobile ? 200 : "auto",
+          flexShrink: 0,
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Link
+          href="/detail"
+          aria-label={`View details for ${property.name}`}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "100%",
+            minHeight: 200,
+            color: "inherit",
+            textDecoration: "none",
+          }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={property.image}
-            alt={property.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover", minHeight: 200, display: "block" }}
-          />
-        </motion.div>
-
-        {/* Hover overlay darken */}
-        <motion.div
-          animate={{ opacity: hovered ? 0.12 : 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ position: "absolute", inset: 0, background: "#000", pointerEvents: "none" }}
-        />
-
-        {/* Top badge (e.g. "Free Cancellation") */}
-        {property.topBadge && (
           <motion.div
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15, type: "spring", stiffness: 400, damping: 28 }}
-            style={{
-              position: "absolute",
-              top: 12,
-              left: 12,
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              paddingLeft: 10,
-              paddingRight: 10,
-              paddingTop: 4,
-              paddingBottom: 4,
-              background: "#005CBD",
-              borderRadius: 9999,
-              boxShadow: "0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10)",
-            }}
+            animate={{ scale: hovered ? 1.07 : 1 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            style={{ width: "100%", height: "100%", minHeight: 200 }}
           >
-            <svg width="10" height="8" viewBox="0 0 10 8" fill="white">
-              <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
-            <span style={{ fontSize: 12, color: "white", fontWeight: 600, lineHeight: "16px" }}>
-              {property.topBadge}
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={property.image}
+              alt={property.name}
+              style={{ width: "100%", height: "100%", objectFit: "cover", minHeight: 200, display: "block" }}
+            />
           </motion.div>
-        )}
 
-        {/* Wishlist button — top right */}
+          <motion.div
+            animate={{ opacity: hovered ? 0.12 : 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ position: "absolute", inset: 0, background: "#000", pointerEvents: "none" }}
+          />
+
+          {property.topBadge && (
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15, type: "spring", stiffness: 400, damping: 28 }}
+              style={{
+                position: "absolute",
+                top: 12,
+                left: 12,
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 4,
+                paddingBottom: 4,
+                background: "#005CBD",
+                borderRadius: 9999,
+                boxShadow: "0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10)",
+              }}
+            >
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="white">
+                <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+              <span style={{ fontSize: 12, color: "white", fontWeight: 600, lineHeight: "16px" }}>
+                {property.topBadge}
+              </span>
+            </motion.div>
+          )}
+        </Link>
+
         <div
           style={{ position: "absolute", top: 12, right: 12 }}
           onClick={(e) => e.stopPropagation()}
@@ -128,7 +149,6 @@ export default function PropertyCard({
           <WishlistButton isSaved={isSaved} onToggle={onSaveToggle} />
         </div>
 
-        {/* AI Match badge — bottom left */}
         <div
           style={{ position: "absolute", bottom: 12, left: 12 }}
           onClick={(e) => e.stopPropagation()}
@@ -136,7 +156,6 @@ export default function PropertyCard({
           <MatchScoreBadge score={score} />
         </div>
 
-        {/* Trust signal — bottom of image, appears on hover */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -166,7 +185,7 @@ export default function PropertyCard({
               <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 <CalendarCheck size={9} color="rgba(255,255,255,0.85)" />
                 <span style={{ fontSize: 9.5, color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>
-                  Booked {trust.bookings}× today
+                  Booked {trust.bookings}x today
                 </span>
               </div>
             </motion.div>
@@ -174,24 +193,29 @@ export default function PropertyCard({
         </AnimatePresence>
       </div>
 
-      {/* Middle content */}
-      <div style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
+      <div className="property-card-body" style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.3 }}
-              style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px" }}
+            <Link
+              href="/detail"
+              onClick={(e) => e.stopPropagation()}
+              style={{ color: "inherit", textDecoration: "none" }}
             >
-              {property.name}
-            </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05, duration: 0.3 }}
+                style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px", cursor: "pointer" }}
+              >
+                {property.name}
+              </motion.span>
+            </Link>
             <RatingStars count={property.stars} starSize={10} />
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
             <MapPin size={10} color="#424753" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: 12, color: "#424753", fontWeight: 400, lineHeight: "16px" }}>
-              {property.location} • {property.locationDetail}
+              {property.location} - {property.locationDetail}
             </span>
           </div>
           <motion.div
@@ -222,8 +246,8 @@ export default function PropertyCard({
         </motion.p>
       </div>
 
-      {/* Right — rating + price + actions */}
       <div
+        className="property-card-price"
         style={{
           padding: isMobile ? "12px 16px 16px" : 20,
           display: "flex",
@@ -246,9 +270,15 @@ export default function PropertyCard({
                 exit={{ opacity: 0, y: -6, scale: 0.88 }}
                 transition={{ type: "spring", stiffness: 400, damping: 28 }}
                 style={{
-                  display: "flex", alignItems: "center", gap: 4,
-                  paddingLeft: 8, paddingRight: 8, paddingTop: 3, paddingBottom: 3,
-                  background: "#EEF3FF", borderRadius: 9999,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  paddingLeft: 8,
+                  paddingRight: 8,
+                  paddingTop: 3,
+                  paddingBottom: 3,
+                  background: "#EEF3FF",
+                  borderRadius: 9999,
                   border: "1px solid rgba(0,92,189,0.30)",
                 }}
               >
@@ -299,7 +329,6 @@ export default function PropertyCard({
             <span style={{ fontSize: 10, color: "#424753", fontWeight: 400 }}>/night</span>
           </motion.div>
 
-          {/* Book + Compare row */}
           <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 12, justifyContent: "flex-end" }}>
             <CompareButton
               isSelected={isCompared}
@@ -309,7 +338,10 @@ export default function PropertyCard({
             <motion.button
               whileHover={{ scale: 1.04, boxShadow: "0px 8px 20px rgba(182,27,74,0.35)" }}
               whileTap={{ scale: 0.97 }}
-              onClick={(e) => { e.stopPropagation(); onBook(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onBook();
+              }}
               style={{
                 paddingLeft: 20,
                 paddingRight: 20,

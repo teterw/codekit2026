@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import {
   Calendar,
   CalendarCheck,
   Headset,
-  Heart,
   Mail,
   MapPin,
   Search,
@@ -59,50 +59,11 @@ const features = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#F8F9FA] font-sans text-[#191C22]">
-      <nav className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#FFFFFF]/80 shadow-sm backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
-          <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-2xl font-extrabold tracking-[-0.05em] text-[#2563EB]"
-            >
-              T-Goda
-            </Link>
-            <div className="flex items-center gap-6">
-              <a
-                href="#"
-                className="border-b-2 border-[#2563EB] pb-1.5 text-sm font-semibold tracking-[-0.025em] text-[#2563EB]"
-              >
-                Hotels
-              </a>
-              <a href="#" className="text-sm font-semibold tracking-[-0.025em] text-[#475569]">
-                Flights
-              </a>
-              <a href="#" className="text-sm font-semibold tracking-[-0.025em] text-[#475569]">
-                Bundles
-              </a>
-              <a href="#" className="text-sm font-semibold tracking-[-0.025em] text-[#475569]">
-                Activities
-              </a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="#" className="px-4 py-2 text-sm font-semibold text-[#475569]">
-              Sign In
-            </a>
-            <a
-              href="#"
-              className="rounded-lg bg-[#005CBD] px-4 py-2 text-sm font-semibold text-[#FFFFFF] shadow-sm"
-            >
-              Create Account
-            </a>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <main>
-        <section className="mx-auto max-w-[1200px] px-4 pt-10 sm:px-6 xl:px-0">
-          <div className="relative flex min-h-[520px] items-center justify-center overflow-hidden">
+        <section className="mx-auto max-w-[1200px] px-4 pt-24 sm:px-6 sm:pt-[104px] xl:px-0">
+          <div className="relative flex min-h-[440px] items-center justify-center overflow-hidden sm:min-h-[520px]">
             <Image
               src="/image/Beach.png"
               alt=""
@@ -113,8 +74,8 @@ export default function Home() {
               style={{ objectPosition: "center 43%" }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.70)_0%,rgba(0,0,0,0.30)_50%,rgba(0,0,0,0.40)_100%)] shadow-[0_4px_4px_rgba(0,0,0,0.25)]" />
-            <div className="relative z-10 mx-auto flex w-full max-w-[800px] flex-col items-center px-4 text-center">
-              <h1 className="max-w-[750px] text-[42px] font-extrabold leading-none tracking-[-0.025em] text-[#FFFFFF] sm:text-[60px]">
+            <div className="animate-fade-up relative z-10 mx-auto flex w-full max-w-[800px] flex-col items-center px-4 text-center">
+              <h1 className="max-w-[750px] text-[38px] font-extrabold leading-none tracking-[-0.025em] text-[#FFFFFF] sm:text-[60px]">
                 Escape to Your Perfect Paradise
               </h1>
               <p className="mt-6 max-w-[672px] text-lg font-medium leading-7 text-[#FFFFFF]/90 sm:text-xl">
@@ -122,7 +83,7 @@ export default function Home() {
                 the globe.
               </p>
 
-              <div className="mt-6 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-[#FFFFFF] p-2 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] md:flex-row md:items-stretch">
+              <div className="mt-6 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-[#FFFFFF] p-2 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1 md:flex-row md:items-stretch">
                 <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-lg border border-[#6B7FC6] bg-[#E9E9E9] px-[13px]">
                   <MapPin className="h-5 w-5 shrink-0 text-[#64748B]" />
                   <input
@@ -140,7 +101,7 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
-                  className="flex h-[52px] items-center justify-center gap-2 rounded-lg bg-[#005CBD] px-8 text-lg font-bold text-[#FFFFFF] md:w-[151px]"
+                  className="flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2 rounded-lg bg-[#005CBD] px-8 text-lg font-bold text-[#FFFFFF] transition duration-200 hover:bg-[#004f9f] active:scale-[0.98] md:w-[151px] md:flex-none"
                 >
                   <Search className="h-[18px] w-[18px]" />
                   Search
@@ -158,10 +119,10 @@ export default function Home() {
               return (
                 <article
                   key={feature.title}
-                  className="flex min-h-[192px] flex-col items-center justify-center rounded-xl bg-[#E9E9E9] p-6 text-center"
+                  className="animate-fade-up group flex min-h-[192px] flex-col items-center justify-center rounded-xl bg-[#E9E9E9] p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div
-                    className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${feature.color}`}
+                    className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full transition duration-300 group-hover:scale-110 ${feature.color}`}
                   >
                     <Icon className="h-6 w-6" />
                   </div>
@@ -178,7 +139,7 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-[1200px] px-4 pb-24 sm:px-6 xl:px-0">
-          <div className="mb-8 flex items-end justify-between">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-[30px] font-bold leading-9 text-[#191C22]">
                 Trending Destinations
@@ -195,21 +156,25 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {destinations.map((destination, index) => (
               <article key={destination.name}>
-                <div className="relative h-[376px] overflow-hidden">
+                <Link
+                  href="/search"
+                  aria-label={`Search hotels in ${destination.name}`}
+                  className="group relative block h-[280px] overflow-hidden sm:h-[376px]"
+                >
                   <Image
                     src={destination.image}
                     alt={destination.name}
                     fill
                     loading={index < 2 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 50vw, 285px"
-                    className="object-cover"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
                   {destination.badge ? (
-                    <span className="absolute bottom-3 left-3 rounded-full bg-[#FFFFFF]/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.05em] text-[#191C22] shadow">
+                    <span className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-[#FFFFFF]/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.05em] text-[#191C22] shadow">
                       {destination.badge}
                     </span>
                   ) : null}
-                </div>
+                </Link>
                 <h3 className="mt-5 text-xl font-bold leading-7 text-[#191C22]">
                   {destination.name}
                 </h3>
@@ -225,39 +190,46 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-[1200px] px-4 pb-32 sm:px-6 xl:px-0">
-          <div className="relative flex min-h-[400px] items-center justify-between overflow-hidden rounded-3xl bg-[#B61B4A] px-12 py-10">
-            <div className="relative z-10 max-w-[576px]">
-              <h2 className="text-[48px] font-extrabold leading-none text-[#FFFFFF]">
+          <div className="relative min-h-[400px] overflow-hidden rounded-3xl bg-[#B61B4A] px-6 py-8 sm:px-12 sm:py-10">
+            <div className="relative z-10 flex min-h-[320px] max-w-[576px] flex-col justify-center">
+              <h2 className="text-[34px] font-extrabold leading-none text-[#FFFFFF] sm:text-[48px]">
                 Summer Sales: Up to
                 <br />
                 40% Off!
               </h2>
-              <p className="mt-4 max-w-[540px] text-lg leading-7 text-[#FFFFFF]/80">
+              <p className="mt-5 max-w-[540px] text-lg leading-7 text-[#FFFFFF]/80">
                 Exclusive member deals on flights and luxury hotels for your next
                 summer getaway. Valid until Oct 31st.
               </p>
-              <div className="mt-8 flex gap-4">
-                <button className="h-14 rounded-xl bg-[#FFFFFF] px-8 text-lg font-bold text-[#B61B4A]">
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <button className="h-14 rounded-xl bg-[#FFFFFF] px-8 text-lg font-bold text-[#B61B4A] transition duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:min-w-[184px]">
                   Explore Deals
                 </button>
-                <button className="h-14 rounded-xl border-2 border-[#FFFFFF] px-8 text-lg font-bold text-[#FFFFFF]">
+                <button className="h-14 rounded-xl border-2 border-[#FFFFFF] px-8 text-lg font-bold text-[#FFFFFF] transition duration-200 hover:-translate-y-0.5 hover:bg-[#FFFFFF]/10 sm:min-w-[220px]">
                   Join Club T-Goda
                 </button>
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-1/2 top-0 w-1/2 opacity-20">
-              <Heart className="absolute left-8 top-8 h-[250px] w-[250px] rotate-[-45deg] fill-[#191C22] text-[#191C22]" />
+            <div className="pointer-events-none absolute left-[45%] top-4 z-0 h-[240px] w-[240px] opacity-20 sm:left-[50.5%] sm:top-0 sm:h-[280px] sm:w-[280px]">
+              <Image
+                src="/icon/Icon.png"
+                alt=""
+                width={280}
+                height={280}
+                sizes="280px"
+                className="h-full w-full object-contain"
+                aria-hidden="true"
+              />
             </div>
 
-            <div className="relative z-10 hidden w-[320px] rotate-3 overflow-hidden rounded-2xl shadow-2xl lg:block">
+            <div className="animate-float absolute right-10 top-16 z-10 hidden h-[260px] w-[360px] rotate-3 overflow-hidden rounded-2xl shadow-2xl lg:block">
               <Image
                 src="/image/Swimming pool.png"
                 alt="Luxury resort pool"
-                width={320}
-                height={320}
-                sizes="320px"
-                className="h-[320px] w-[320px] object-cover"
+                fill
+                sizes="360px"
+                className="object-cover"
               />
             </div>
           </div>
@@ -273,7 +245,7 @@ export default function Home() {
               Subscribe to our newsletter and get early access to hidden gems and seasonal
               discounts. No spam, only adventure.
             </p>
-            <div className="mx-auto mt-6 flex max-w-[672px] gap-3">
+            <div className="mx-auto mt-6 flex max-w-[672px] flex-col gap-3 sm:flex-row">
               <input
                 type="email"
                 placeholder="Your email address"
@@ -291,7 +263,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-[#E2E8F0] bg-[#F8FAFC] pt-14 pb-56">
-        <div className="mx-auto grid max-w-[1280px] grid-cols-[1.5fr_1fr_1fr_1fr] gap-16 px-6">
+        <div className="mx-auto grid max-w-[1280px] gap-10 px-6 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-16">
           <div>
             <p className="text-xl font-bold text-[#0F172A]">T-Goda</p>
             <p className="mt-6 max-w-[410px] text-sm leading-5 text-[#64748B]">

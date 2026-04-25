@@ -60,10 +60,10 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="w-full bg-[#F8FAFC] border-t border-[#E2E8F0]">
-      <div className="w-full max-w-[1280px] mx-auto px-6 py-12">
+      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Responsive grid: stacks on mobile, 4 cols on desktop */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Brand block — takes first column */}
           <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">

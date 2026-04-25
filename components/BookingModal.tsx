@@ -6,6 +6,7 @@ import { X, MapPin, CheckCircle } from "lucide-react";
 import { PropertyData } from "./data";
 import RatingStars from "./RatingStars";
 import TagBadge from "./TagBadge";
+import RatingBadge from "./RatingBadge";
 import { getTagIcon } from "./tagIcons";
 
 interface BookingModalProps {
@@ -171,18 +172,12 @@ export default function BookingModal({ property, onClose }: BookingModalProps) {
                       <RatingStars count={property.stars} starSize={14} />
                       <span style={{ fontSize: 12, color: "#424753" }}>{property.stars}-star property</span>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <div style={{ textAlign: "right" }}>
-                        <p style={{ fontSize: 12, color: "#005CBD", fontWeight: 600 }}>{property.ratingLabel}</p>
-                        <p style={{ fontSize: 11, color: "#6B7280" }}>{property.ratingCount} reviews</p>
-                      </div>
-                      <div style={{
-                        width: 40, height: 40, background: "#005CBD", borderRadius: 8,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                      }}>
-                        <span style={{ fontSize: 15, color: "white", fontWeight: 700 }}>{property.ratingScore}</span>
-                      </div>
-                    </div>
+                    <RatingBadge
+                      score={property.ratingScore}
+                      label={property.ratingLabel}
+                      count={property.ratingCount}
+                      animateOnMount={false}
+                    />
                   </div>
 
                   {/* Tags */}

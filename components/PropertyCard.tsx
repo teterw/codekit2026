@@ -7,6 +7,7 @@ import { PropertyData } from "./data";
 import { getTagIcon } from "./tagIcons";
 import RatingStars from "./RatingStars";
 import TagBadge from "./TagBadge";
+import RatingBadge from "./RatingBadge";
 
 interface PropertyCardProps {
   property: PropertyData;
@@ -20,8 +21,13 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
     <motion.div
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      animate={{ y: hovered ? -3 : 0, boxShadow: hovered ? "0px 12px 28px rgba(0,0,0,0.10)" : "0px 4px 12px rgba(0,0,0,0.05)" }}
-      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      animate={{
+        y: hovered ? -4 : 0,
+        boxShadow: hovered
+          ? "0px 16px 36px rgba(0,0,0,0.11), 0px 4px 10px rgba(0,0,0,0.06)"
+          : "0px 4px 12px rgba(0,0,0,0.05)",
+      }}
+      transition={{ type: "spring", stiffness: 360, damping: 28 }}
       style={{
         display: "flex",
         background: "white",
@@ -32,11 +38,11 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
         cursor: "default",
       }}
     >
-      {/* Image */}
+      {/* Image with zoom */}
       <div style={{ width: 256, flexShrink: 0, position: "relative", overflow: "hidden" }}>
         <motion.div
-          animate={{ scale: hovered ? 1.06 : 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          animate={{ scale: hovered ? 1.07 : 1 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
           style={{ width: "100%", height: "100%", minHeight: 200 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -46,8 +52,19 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
             style={{ width: "100%", height: "100%", objectFit: "cover", minHeight: 200, display: "block" }}
           />
         </motion.div>
+
+        {/* Overlay darkens slightly on hover */}
+        <motion.div
+          animate={{ opacity: hovered ? 0.12 : 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ position: "absolute", inset: 0, background: "#000", pointerEvents: "none" }}
+        />
+
         {property.topBadge && (
-          <div
+          <motion.div
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15, type: "spring", stiffness: 400, damping: 28 }}
             style={{
               position: "absolute",
               top: 12,
@@ -70,7 +87,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
             <span style={{ fontSize: 12, color: "white", fontWeight: 600, lineHeight: "16px" }}>
               {property.topBadge}
             </span>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -78,9 +95,14 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
       <div style={{ flex: 1, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px" }}>
+            <motion.span
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05, duration: 0.3 }}
+              style={{ fontSize: 18, color: "#191C22", fontWeight: 600, lineHeight: "28px" }}
+            >
               {property.name}
-            </span>
+            </motion.span>
             <RatingStars count={property.stars} starSize={10} />
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
@@ -89,49 +111,66 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
               {property.location} • {property.locationDetail}
             </span>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {property.tagLabels.map((label) => (
-              <TagBadge key={label} icon={getTagIcon(label)} label={label} />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.3 }}
+            style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
+          >
+            {property.tagLabels.map((label, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 + i * 0.05, type: "spring", stiffness: 400, damping: 28 }}
+              >
+                <TagBadge icon={getTagIcon(label)} label={label} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-        <p style={{ fontSize: 12, color: property.noteColor, fontWeight: 500, lineHeight: "16px", marginTop: 12 }}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          style={{ fontSize: 12, color: property.noteColor, fontWeight: 500, lineHeight: "16px", marginTop: 12 }}
+        >
           {property.note}
-        </p>
+        </motion.p>
       </div>
 
       {/* Right — rating + price */}
       <div style={{ padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-end", flexShrink: 0, minWidth: 190 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ textAlign: "right" }}>
-            <p style={{ fontSize: 12, color: "#005CBD", fontWeight: 600, lineHeight: "16px", textAlign: "right" }}>
-              {property.ratingLabel}
-            </p>
-            <p style={{ fontSize: 11, color: "#6B7280", fontWeight: 400, lineHeight: "16px", textAlign: "right" }}>
-              {property.ratingCount} reviews
-            </p>
-          </div>
-          <div style={{ width: 44, height: 44, background: "#005CBD", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <span style={{ fontSize: 16, color: "white", fontWeight: 700, lineHeight: "24px" }}>
-              {property.ratingScore}
-            </span>
-          </div>
-        </div>
+        <RatingBadge
+          score={property.ratingScore}
+          label={property.ratingLabel}
+          count={property.ratingCount}
+        />
 
         <div style={{ textAlign: "right" }}>
           {property.oldPrice && (
-            <span style={{ fontSize: 10, color: "#424753", fontWeight: 400, textDecoration: "line-through", display: "block", lineHeight: "10px", marginBottom: 2 }}>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              style={{ fontSize: 10, color: "#424753", fontWeight: 400, textDecoration: "line-through", display: "block", lineHeight: "10px", marginBottom: 2 }}
+            >
               {property.oldPrice}
-            </span>
+            </motion.span>
           )}
-          <div style={{ display: "flex", alignItems: "baseline", gap: 4, justifyContent: "flex-end" }}>
+          <motion.div
+            initial={{ opacity: 0, x: 8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.18, type: "spring", stiffness: 400, damping: 28 }}
+            style={{ display: "flex", alignItems: "baseline", gap: 4, justifyContent: "flex-end" }}
+          >
             <span style={{ fontSize: 24, color: "#B61B4A", fontWeight: 600, lineHeight: "31.2px" }}>
               {property.price}
             </span>
             <span style={{ fontSize: 10, color: "#424753", fontWeight: 400 }}>/night</span>
-          </div>
+          </motion.div>
           <motion.button
-            whileHover={{ scale: 1.04 }}
+            whileHover={{ scale: 1.04, boxShadow: "0px 8px 20px rgba(182,27,74,0.35)" }}
             whileTap={{ scale: 0.97 }}
             onClick={onBook}
             style={{
@@ -151,6 +190,7 @@ export default function PropertyCard({ property, onBook }: PropertyCardProps) {
               cursor: "pointer",
               fontFamily: "inherit",
               whiteSpace: "nowrap",
+              transition: "box-shadow 0.2s",
             }}
           >
             Book Now

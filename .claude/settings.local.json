@@ -2,23 +2,6 @@
   "permissions": {
     "allow": [
       "Bash(bun run *)",
-      "Bash(bun add *)",
-      "Bash(node -e \"const l = require\\('./node_modules/lucide-react'\\); const keys = Object.keys\\(l\\).filter\\(k => /share|link|globe|network|rss|at|hash|signal|broadcast|social|x$/i.test\\(k\\)\\); console.log\\(keys.join\\('\\\\n'\\)\\)\")",
-      "Bash(bun -e \"import * as l from 'lucide-react'; const keys = Object.keys\\(l\\).filter\\(k => /share|link|globe|network|rss|at|hash|signal|x$/i.test\\(k\\)\\); console.log\\(keys.join\\('\\\\n'\\)\\)\")",
-      "Bash(bun -e \"import * as l from 'lucide-react'; const keys = Object.keys\\(l\\).filter\\(k => /^\\(Camera|Image|Globe|Share|Users|MessageCircle|Radio|Rss|Feather|Send|AtSign|X\\)$/.test\\(k\\)\\); console.log\\(keys.sort\\(\\).join\\('\\\\n'\\)\\)\")",
-      "Bash(netstat -ano)",
-      "Bash(findstr \":3000\")",
-      "Bash(taskkill /PID 27012 /F)",
-      "Read(//tmp/**)",
-      "Bash(git config *)",
-      "Bash(findstr \":3001\")",
-      "Bash(taskkill /PID 2492 /F)",
-      "PowerShell(Stop-Process -Id 27012 -Force -ErrorAction SilentlyContinue)",
-      "PowerShell(Stop-Process -Id 2492 -Force -ErrorAction SilentlyContinue)",
-      "PowerShell(netstat -ano)",
-      "PowerShell(Stop-Process -Id 6696 -Force)",
-      "Bash(bun dev *)",
-      "Bash(curl -s http://localhost:3000)"
       "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 15; Write-Host \"HTTP $\\($r.StatusCode\\)\"; $r.Content | Select-String -Pattern \"error|Error|ENOENT\" -SimpleMatch | Select-Object -First 10 } catch { Write-Host \"Error: $_\" })",
       "PowerShell(Start-Sleep -Seconds 3; $response = Invoke-RestMethod -Uri \"http://localhost:3000\" -Method Get -TimeoutSec 15 -ErrorAction Stop; Write-Host \"Page loaded OK, length=$\\($response.Length\\)\")"
     ]

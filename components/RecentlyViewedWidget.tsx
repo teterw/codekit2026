@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, ChevronUp, ChevronDown } from "lucide-react";
 import { PropertyData } from "./data";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface RecentlyViewedWidgetProps {
   properties: PropertyData[];
@@ -14,6 +15,7 @@ export default function RecentlyViewedWidget({ properties, onOpen }: RecentlyVie
   const [expanded, setExpanded] = useState(false);
   const [pulsing, setPulsing] = useState(false);
   const prevLen = useRef(0);
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     if (properties.length > prevLen.current) {
@@ -35,8 +37,8 @@ export default function RecentlyViewedWidget({ properties, onOpen }: RecentlyVie
       transition={{ type: "spring", stiffness: 380, damping: 28 }}
       style={{
         position: "fixed",
-        bottom: 24,
-        right: 24,
+        bottom: isMobile ? 80 : 24,
+        right: isMobile ? 12 : 24,
         zIndex: 90,
         display: "flex",
         flexDirection: "column",

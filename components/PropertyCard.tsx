@@ -12,6 +12,7 @@ import WishlistButton from "./WishlistButton";
 import MatchScoreBadge from "./MatchScoreBadge";
 import CompareButton from "./CompareButton";
 import { getMatchScore, getPriceInsight, getTrustData } from "@/utils/propertyUtils";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface PropertyCardProps {
   property: PropertyData;
@@ -37,6 +38,7 @@ export default function PropertyCard({
   const score = getMatchScore(property);
   const insight = getPriceInsight(property);
   const trust = getTrustData(property.id);
+  const { isMobile } = useBreakpoint();
 
   return (
     <motion.div
@@ -56,6 +58,7 @@ export default function PropertyCard({
       onClick={onBook}
       style={{
         display: "flex",
+        flexDirection: isMobile ? "column" : "row",
         background: "white",
         borderRadius: 12,
         outline: isCompared ? "none" : "1px rgba(194, 198, 213, 0.20) solid",
@@ -65,7 +68,7 @@ export default function PropertyCard({
       }}
     >
       {/* Image with overlays */}
-      <div style={{ width: 256, flexShrink: 0, position: "relative", overflow: "hidden" }}>
+      <div style={{ width: isMobile ? "100%" : 256, height: isMobile ? 200 : "auto", flexShrink: 0, position: "relative", overflow: "hidden" }}>
         <motion.div
           animate={{ scale: hovered ? 1.07 : 1 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
@@ -221,10 +224,20 @@ export default function PropertyCard({
 
       {/* Right — rating + price + actions */}
       <div
-        style={{ padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-end", flexShrink: 0, minWidth: 190 }}
+        style={{
+          padding: isMobile ? "12px 16px 16px" : 20,
+          display: "flex",
+          flexDirection: isMobile ? "row" : "column",
+          justifyContent: "space-between",
+          alignItems: isMobile ? "flex-end" : "flex-end",
+          flexShrink: 0,
+          minWidth: isMobile ? 0 : 190,
+          width: isMobile ? "100%" : "auto",
+          borderTop: isMobile ? "1px solid rgba(194,198,213,0.20)" : "none",
+        }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: isMobile ? "flex-start" : "flex-end", gap: 6 }}>
           <AnimatePresence>
             {isCompared && (
               <motion.div
@@ -254,7 +267,7 @@ export default function PropertyCard({
           />
         </div>
 
-        <div style={{ textAlign: "right" }}>
+        <div style={{ textAlign: isMobile ? "left" : "right" }}>
           {property.oldPrice ? (
             <motion.span
               initial={{ opacity: 0 }}

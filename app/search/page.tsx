@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Heart } from "lucide-react";
+import { X, Heart, SlidersHorizontal } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
@@ -26,6 +26,7 @@ import {
 import { useWishlist } from "@/hooks/useWishlist";
 import { useCompare } from "@/hooks/useCompare";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 function applyFilters(properties: PropertyData[], filters: FiltersState): PropertyData[] {
   return properties.filter((p) => {
@@ -98,6 +99,8 @@ export default function SearchPage() {
   const wishlist = useWishlist();
   const compare = useCompare();
   const recentlyViewed = useRecentlyViewed(4);
+  const { isMobile } = useBreakpoint();
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   const filteredAndSorted = useMemo(
     () => applySorting(applyFilters(ALL_PROPERTIES, filters), sortBy),
@@ -182,23 +185,104 @@ export default function SearchPage() {
           style={{
             maxWidth: 1280,
             margin: "0 auto",
-            paddingLeft: 24,
-            paddingRight: 24,
-            paddingTop: 32,
-            paddingBottom: 32,
+            paddingLeft: isMobile ? 16 : 24,
+            paddingRight: isMobile ? 16 : 24,
+            paddingTop: isMobile ? 16 : 32,
+            paddingBottom: isMobile ? 100 : 32,
             display: "flex",
             alignItems: "flex-start",
             gap: 24,
           }}
         >
-          <FilterSidebar
-            filters={filters}
-            onChange={handleFiltersChange}
-            onReset={() => handleFiltersChange(DEFAULT_FILTERS)}
-          />
+          {/* Sidebar — desktop only */}
+          {!isMobile && (
+            <FilterSidebar
+              filters={filters}
+              onChange={handleFiltersChange}
+              onReset={() => handleFiltersChange(DEFAULT_FILTERS)}
+            />
+          )}
+
+          {/* Mobile filter drawer */}
+          <AnimatePresence>
+            {isMobile && filterDrawerOpen && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setFilterDrawerOpen(false)}
+                  style={{
+                    position: "fixed", inset: 0,
+                    background: "rgba(10,15,30,0.45)",
+                    backdropFilter: "blur(3px)",
+                    zIndex: 180,
+                  }}
+                />
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ type: "spring", stiffness: 340, damping: 32 }}
+                  style={{
+                    position: "fixed",
+                    top: 0, left: 0, bottom: 0,
+                    width: "min(320px, 90vw)",
+                    background: "#F8F9FA",
+                    zIndex: 181,
+                    overflowY: "auto",
+                    paddingBottom: 24,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 20px 12px" }}>
+                    <span style={{ fontSize: 16, fontWeight: 700, color: "#191C22" }}>Filters</span>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      onClick={() => setFilterDrawerOpen(false)}
+                      style={{ width: 32, height: 32, borderRadius: 9999, background: "#F3F4F6", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                    >
+                      <X size={15} color="#424753" />
+                    </motion.button>
+                  </div>
+                  <div style={{ paddingLeft: 8, paddingRight: 8 }}>
+                    <FilterSidebar
+                      filters={filters}
+                      onChange={(f) => { handleFiltersChange(f); setFilterDrawerOpen(false); }}
+                      onReset={() => { handleFiltersChange(DEFAULT_FILTERS); setFilterDrawerOpen(false); }}
+                    />
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
 
           {/* Results column */}
           <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* Mobile filter toggle */}
+            {isMobile && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setFilterDrawerOpen(true)}
+                style={{
+                  display: "flex", alignItems: "center", gap: 8,
+                  paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9,
+                  background: chips.length > 0 ? "#EEF3FF" : "white",
+                  borderRadius: 10,
+                  border: chips.length > 0 ? "1px solid rgba(0,92,189,0.30)" : "1px solid rgba(194,198,213,0.40)",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  alignSelf: "flex-start",
+                }}
+              >
+                <SlidersHorizontal size={14} color={chips.length > 0 ? "#005CBD" : "#424753"} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: chips.length > 0 ? "#005CBD" : "#191C22" }}>
+                  Filters{chips.length > 0 ? ` (${chips.length})` : ""}
+                </span>
+              </motion.button>
+            )}
+
             <ResultsHeader
               count={filteredAndSorted.length}
               sortBy={sortBy}
@@ -375,8 +459,8 @@ export default function SearchPage() {
             onClick={() => setWishlistOpen(true)}
             style={{
               position: "fixed",
-              top: 80,
-              right: 24,
+              top: isMobile ? 72 : 80,
+              right: isMobile ? 12 : 24,
               zIndex: 100,
               display: "flex",
               alignItems: "center",

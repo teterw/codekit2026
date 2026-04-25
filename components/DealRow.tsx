@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import RatingStars from "./RatingStars";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface DealRowProps {
   image: string;
@@ -29,6 +30,7 @@ export default function DealRow({
   hasBorderTop = false,
 }: DealRowProps) {
   const [claimState, setClaimState] = useState<"idle" | "loading" | "claimed">("idle");
+  const { isMobile } = useBreakpoint();
 
   const handleClaim = () => {
     if (claimState !== "idle") return;
@@ -40,13 +42,14 @@ export default function DealRow({
     <div
       style={{
         display: "flex",
+        flexDirection: isMobile ? "column" : "row",
         alignItems: "stretch",
-        height: 192,
+        height: isMobile ? "auto" : 192,
         borderTop: hasBorderTop ? "1px rgba(194, 198, 213, 0.10) solid" : "none",
       }}
     >
       {/* Image */}
-      <div style={{ width: 256, flexShrink: 0, position: "relative", overflow: "hidden" }}>
+      <div style={{ width: isMobile ? "100%" : 256, height: isMobile ? 140 : "auto", flexShrink: 0, position: "relative", overflow: "hidden" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Heart, MapPin } from "lucide-react";
 import { PropertyData } from "./data";
 import RatingBadge from "./RatingBadge";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface WishlistDrawerProps {
   open: boolean;
@@ -15,6 +16,7 @@ interface WishlistDrawerProps {
 }
 
 export default function WishlistDrawer({ open, onClose, properties, onRemove, onBook }: WishlistDrawerProps) {
+  const { isMobile } = useBreakpoint();
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
@@ -49,7 +51,7 @@ export default function WishlistDrawer({ open, onClose, properties, onRemove, on
             style={{
               position: "fixed",
               top: 0, right: 0, bottom: 0,
-              width: 400,
+              width: isMobile ? "100%" : 400,
               background: "white",
               boxShadow: "-8px 0 40px rgba(0,0,0,0.14)",
               zIndex: 211,

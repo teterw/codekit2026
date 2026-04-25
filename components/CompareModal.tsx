@@ -6,6 +6,7 @@ import { X, Check, Minus } from "lucide-react";
 import { PropertyData } from "./data";
 import RatingStars from "./RatingStars";
 import { getMatchScore } from "@/utils/propertyUtils";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface CompareModalProps {
   properties: PropertyData[];
@@ -40,6 +41,7 @@ function Cell({ children, highlight = false }: { children: React.ReactNode; high
 }
 
 export default function CompareModal({ properties, onClose, onBook }: CompareModalProps) {
+  const { isMobile } = useBreakpoint();
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
@@ -75,10 +77,10 @@ export default function CompareModal({ properties, onClose, onBook }: CompareMod
           onClick={(e) => e.stopPropagation()}
           style={{
             background: "white",
-            borderRadius: 20,
+            borderRadius: isMobile ? "20px 20px 0 0" : 20,
             width: "100%",
-            maxWidth: 860,
-            maxHeight: "90vh",
+            maxWidth: isMobile ? "100%" : 860,
+            maxHeight: isMobile ? "92dvh" : "90vh",
             overflow: "hidden",
             boxShadow: "0px 32px 64px -12px rgba(0,0,0,0.28)",
             display: "flex",
@@ -103,7 +105,8 @@ export default function CompareModal({ properties, onClose, onBook }: CompareMod
           </div>
 
           {/* Table */}
-          <div style={{ overflowY: "auto", flex: 1 }}>
+          <div style={{ overflowY: "auto", overflowX: isMobile ? "auto" : "hidden", flex: 1 }}>
+            <div style={{ minWidth: isMobile ? 520 : "auto" }}>
             {/* Hotel header row */}
             <div style={{ display: "grid", gridTemplateColumns: "140px repeat(3, 1fr)", borderBottom: "2px solid rgba(194,198,213,0.30)", position: "sticky", top: 0, background: "white", zIndex: 10 }}>
               <div style={{ padding: "16px", background: "#F8F9FA" }} />
@@ -222,6 +225,7 @@ export default function CompareModal({ properties, onClose, onBook }: CompareMod
                   )}
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </motion.div>

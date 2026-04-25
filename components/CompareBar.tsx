@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, BarChart2 } from "lucide-react";
 import { PropertyData } from "./data";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface CompareBarProps {
   selected: PropertyData[];
@@ -13,6 +14,7 @@ interface CompareBarProps {
 
 export default function CompareBar({ selected, onRemove, onCompare, onClear }: CompareBarProps) {
   const slots = [selected[0] ?? null, selected[1] ?? null, selected[2] ?? null];
+  const { isMobile } = useBreakpoint();
 
   return (
     <AnimatePresence>
@@ -24,19 +26,20 @@ export default function CompareBar({ selected, onRemove, onCompare, onClear }: C
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
           style={{
             position: "fixed",
-            bottom: 24,
-            left: "50%",
-            transform: "translateX(-50%)",
+            bottom: isMobile ? 0 : 24,
+            left: isMobile ? 0 : "50%",
+            right: isMobile ? 0 : "auto",
+            transform: isMobile ? "none" : "translateX(-50%)",
             background: "white",
-            borderRadius: 16,
+            borderRadius: isMobile ? "16px 16px 0 0" : 16,
             boxShadow: "0px 24px 60px rgba(0,0,0,0.18), 0px 4px 12px rgba(0,0,0,0.08)",
             border: "1px solid rgba(194,198,213,0.30)",
-            padding: "14px 20px",
+            padding: isMobile ? "12px 16px" : "14px 20px",
             display: "flex",
             alignItems: "center",
-            gap: 16,
+            gap: isMobile ? 8 : 16,
             zIndex: 160,
-            minWidth: 540,
+            minWidth: isMobile ? 0 : 540,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
@@ -46,13 +49,13 @@ export default function CompareBar({ selected, onRemove, onCompare, onClear }: C
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: 8, flex: 1 }}>
-            {slots.map((p, i) => (
+          <div style={{ display: "flex", gap: 8, flex: 1, overflow: "hidden" }}>
+            {slots.filter(p => isMobile ? p !== null : true).map((p, i) => (
               <div
                 key={i}
                 style={{
                   flex: 1,
-                  height: 44,
+                  height: 40,
                   borderRadius: 9,
                   border: p ? "1px solid rgba(0,92,189,0.20)" : "1.5px dashed rgba(194,198,213,0.70)",
                   display: "flex",
@@ -61,6 +64,7 @@ export default function CompareBar({ selected, onRemove, onCompare, onClear }: C
                   padding: "0 10px",
                   background: p ? "#F0F5FF" : "transparent",
                   overflow: "hidden",
+                  minWidth: 0,
                 }}
               >
                 {p ? (

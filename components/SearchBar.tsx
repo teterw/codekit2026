@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MapPin, Calendar, Users, ChevronDown, Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DESTINATIONS, DATE_RANGES } from "./data";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const fieldStyle: React.CSSProperties = {
   display: "flex",
@@ -87,6 +88,7 @@ export default function SearchBar({
   const [destOpen, setDestOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
   const [travelOpen, setTravelOpen] = useState(false);
+  const { isMobile } = useBreakpoint();
 
   const destRef = useRef<HTMLDivElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
@@ -113,17 +115,18 @@ export default function SearchBar({
         style={{
           maxWidth: 1280,
           margin: "0 auto",
-          paddingLeft: 24,
-          paddingRight: 24,
-          paddingTop: 16,
-          paddingBottom: 16,
+          paddingLeft: isMobile ? 16 : 24,
+          paddingRight: isMobile ? 16 : 24,
+          paddingTop: 12,
+          paddingBottom: 12,
           display: "flex",
-          alignItems: "center",
-          gap: 16,
+          flexWrap: isMobile ? "wrap" : "nowrap",
+          alignItems: isMobile ? "stretch" : "center",
+          gap: isMobile ? 8 : 16,
         }}
       >
         {/* Destination */}
-        <div ref={destRef} style={{ ...fieldStyle, flex: "1 1 0", minWidth: 280 }} onClick={() => setDestOpen((o) => !o)}>
+        <div ref={destRef} style={{ ...fieldStyle, flex: isMobile ? "1 1 100%" : "1 1 0", minWidth: isMobile ? 0 : 280 }} onClick={() => setDestOpen((o) => !o)}>
           <MapPin size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
             <p style={labelStyle}>Destination</p>
@@ -173,7 +176,7 @@ export default function SearchBar({
         </div>
 
         {/* Dates */}
-        <div ref={dateRef} style={fieldStyle} onClick={() => setDateOpen((o) => !o)}>
+        <div ref={dateRef} style={{ ...fieldStyle, flex: isMobile ? "1 1 calc(50% - 4px)" : undefined }} onClick={() => setDateOpen((o) => !o)}>
           <Calendar size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Dates</p>
@@ -220,7 +223,7 @@ export default function SearchBar({
         </div>
 
         {/* Travelers */}
-        <div ref={travelRef} style={fieldStyle} onClick={() => setTravelOpen((o) => !o)}>
+        <div ref={travelRef} style={{ ...fieldStyle, flex: isMobile ? "1 1 calc(50% - 4px)" : undefined }} onClick={() => setTravelOpen((o) => !o)}>
           <Users size={16} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Travelers</p>
@@ -305,6 +308,7 @@ export default function SearchBar({
           whileTap={{ scale: 0.98 }}
           onClick={onSearch}
           style={{
+            flex: isMobile ? "1 1 100%" : undefined,
             paddingLeft: 32,
             paddingRight: 32,
             paddingTop: 12,

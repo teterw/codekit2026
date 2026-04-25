@@ -9,6 +9,7 @@ import TagBadge from "./TagBadge";
 import RatingBadge from "./RatingBadge";
 import { getTagIcon } from "./tagIcons";
 import { getMatchScore, getPriceInsight } from "@/utils/propertyUtils";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface QuickViewModalProps {
   property: PropertyData | null;
@@ -19,6 +20,7 @@ interface QuickViewModalProps {
 
 export default function QuickViewModal({ property, onClose, isSaved, onSaveToggle }: QuickViewModalProps) {
   const [step, setStep] = useState<"detail" | "loading" | "success">("detail");
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     if (property) setStep("detail");
@@ -52,24 +54,25 @@ export default function QuickViewModal({ property, onClose, isSaved, onSaveToggl
             backdropFilter: "blur(5px)",
             zIndex: 200,
             display: "flex",
-            alignItems: "center",
+            alignItems: isMobile ? "flex-end" : "center",
             justifyContent: "center",
-            padding: 24,
+            padding: isMobile ? 0 : 24,
           }}
         >
           <motion.div
             key="qv-content"
-            initial={{ opacity: 0, scale: 0.93, y: 28 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.93, y: 28 }}
-            transition={{ type: "spring", stiffness: 380, damping: 28 }}
+            initial={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.93, y: 28 }}
+            animate={isMobile ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+            exit={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.93, y: 28 }}
+            transition={{ type: "spring", stiffness: 380, damping: 32 }}
             onClick={(e) => e.stopPropagation()}
             style={{
               background: "white",
-              borderRadius: 20,
+              borderRadius: isMobile ? "20px 20px 0 0" : 20,
               width: "100%",
-              maxWidth: 620,
-              overflow: "hidden",
+              maxWidth: isMobile ? "100%" : 620,
+              maxHeight: isMobile ? "92dvh" : "90vh",
+              overflowY: "auto",
               boxShadow: "0px 32px 64px -12px rgba(0,0,0,0.28)",
             }}
           >
@@ -109,7 +112,7 @@ export default function QuickViewModal({ property, onClose, isSaved, onSaveToggl
             ) : (
               <>
                 {/* Hero image */}
-                <div style={{ height: 240, position: "relative", overflow: "hidden" }}>
+                <div style={{ height: isMobile ? 180 : 240, position: "relative", overflow: "hidden", flexShrink: 0 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={property.image}

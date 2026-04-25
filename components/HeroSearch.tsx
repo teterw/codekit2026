@@ -50,7 +50,7 @@ export default function HeroSearch() {
   };
 
   return (
-    <div className="mt-6 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-[#FFFFFF] p-2 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1 md:flex-row md:items-stretch">
+    <div className="relative z-40 mt-6 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-[#FFFFFF] p-2 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1 md:flex-row md:items-stretch">
       <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-lg border border-[#6B7FC6] bg-[#E9E9E9] px-[13px]">
         <MapPin className="h-5 w-5 shrink-0 text-[#64748B]" />
         <input
@@ -74,7 +74,7 @@ export default function HeroSearch() {
         </button>
 
         {isCalendarOpen ? (
-          <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-30 rounded-xl border border-[#C2C6D5]/60 bg-white p-4 text-left shadow-[0_18px_40px_rgba(15,23,42,0.20)] md:left-auto md:w-[360px]">
+          <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-[70] rounded-xl border border-[#C2C6D5]/60 bg-white p-4 text-left shadow-[0_18px_40px_rgba(15,23,42,0.20)] md:left-auto md:w-[360px]">
             <div className="grid gap-3 sm:grid-cols-2">
               <label className="flex flex-col gap-2">
                 <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#424753]">

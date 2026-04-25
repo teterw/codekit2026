@@ -19,6 +19,8 @@
       "PowerShell(Stop-Process -Id 6696 -Force)",
       "Bash(bun dev *)",
       "Bash(curl -s http://localhost:3000)"
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 15; Write-Host \"HTTP $\\($r.StatusCode\\)\"; $r.Content | Select-String -Pattern \"error|Error|ENOENT\" -SimpleMatch | Select-Object -First 10 } catch { Write-Host \"Error: $_\" })",
+      "PowerShell(Start-Sleep -Seconds 3; $response = Invoke-RestMethod -Uri \"http://localhost:3000\" -Method Get -TimeoutSec 15 -ErrorAction Stop; Write-Host \"Page loaded OK, length=$\\($response.Length\\)\")"
     ]
   }
 }

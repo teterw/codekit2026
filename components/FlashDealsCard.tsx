@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Flame } from "lucide-react";
 import DealRow from "./DealRow";
+import { AnimatedTime } from "./AnimatedDigit";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const deals = [
   {
@@ -47,6 +49,7 @@ export default function FlashDealsCard() {
     return () => clearInterval(id);
   }, []);
 
+  const { isMobile } = useBreakpoint();
   const pad = (n: number) => n.toString().padStart(2, "0");
   const h = pad(Math.floor(seconds / 3600));
   const m = pad(Math.floor((seconds % 3600) / 60));
@@ -68,10 +71,12 @@ export default function FlashDealsCard() {
         <div
           style={{
             display: "flex",
+            flexWrap: "wrap",
             alignItems: "center",
+            gap: 8,
             justifyContent: "space-between",
-            paddingLeft: 24,
-            paddingRight: 24,
+            paddingLeft: isMobile ? 16 : 24,
+            paddingRight: isMobile ? 16 : 24,
             paddingTop: 12,
             paddingBottom: 12,
             background: "rgba(182, 27, 74, 0.10)",
@@ -101,20 +106,12 @@ export default function FlashDealsCard() {
                 borderRadius: 6,
               }}
             >
-              {[h, ":", m, ":", s].map((seg, i) => (
-                <span
-                  key={i}
-                  style={{
-                    fontSize: 14,
-                    color: "white",
-                    fontWeight: 700,
-                    lineHeight: "20px",
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                  }}
-                >
-                  {seg}
-                </span>
-              ))}
+              <AnimatedTime
+                h={h}
+                m={m}
+                s={s}
+                style={{ fontSize: 14, color: "white", fontWeight: 700, lineHeight: "20px" }}
+              />
             </div>
           </div>
         </div>

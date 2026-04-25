@@ -34,6 +34,67 @@ body {
   }
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0px 4px 12px rgba(0, 92, 189, 0.1);
+  }
+  50% {
+    box-shadow: 0px 4px 20px rgba(0, 92, 189, 0.2);
+  }
+}
+
 @keyframes float-soft {
   0%,
   100% {
@@ -44,17 +105,112 @@ body {
   }
 }
 
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
 .animate-fade-up {
   animation: fade-up 620ms ease-out both;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .animate-float {
   animation: float-soft 5s ease-in-out infinite;
 }
 
+.animate-rotateIn {
+  animation: rotateIn 0.4s ease-out;
+}
+
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.hover-scale {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-scale-sm {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.03);
+}
+
+.hover-shadow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-shadow:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.hover-shadow-lg {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-shadow-lg:hover {
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.hover-border-blue {
+  transition: all 0.3s ease;
+  border-color: rgba(194, 198, 213, 0.3);
+}
+
+.hover-border-blue:hover {
+  border-color: #005CBD;
+}
+
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
-  .animate-float {
+  .animate-slideDown,
+  .animate-slideUp,
+  .animate-fadeIn,
+  .animate-scaleIn,
+  .animate-pulse-glow,
+  .animate-float,
+  .animate-rotateIn {
     animation: none;
   }
 

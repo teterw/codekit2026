@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MapPin, Calendar, Users, ChevronDown, Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DESTINATIONS, DATE_RANGES } from "./data";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const fieldStyle: React.CSSProperties = {
   display: "flex",
@@ -87,6 +88,7 @@ export default function SearchBar({
   const [destOpen, setDestOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
   const [travelOpen, setTravelOpen] = useState(false);
+  const { isMobile } = useBreakpoint();
 
   const destRef = useRef<HTMLDivElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
@@ -114,17 +116,22 @@ export default function SearchBar({
         style={{
           maxWidth: 1280,
           margin: "0 auto",
-          paddingLeft: 24,
-          paddingRight: 24,
-          paddingTop: 16,
-          paddingBottom: 16,
+          paddingLeft: isMobile ? 16 : 24,
+          paddingRight: isMobile ? 16 : 24,
+          paddingTop: 12,
+          paddingBottom: 12,
           display: "flex",
-          alignItems: "center",
-          gap: 16,
+          flexWrap: isMobile ? "wrap" : "nowrap",
+          alignItems: isMobile ? "stretch" : "center",
+          gap: isMobile ? 8 : 16,
         }}
       >
-        {/* Destination */}
-        <div className="search-bar-field" ref={destRef} style={{ ...fieldStyle, flex: "1 1 0", minWidth: 280 }} onClick={() => setDestOpen((o) => !o)}>
+        <div
+          className="search-bar-field"
+          ref={destRef}
+          style={{ ...fieldStyle, flex: isMobile ? "1 1 100%" : "1 1 0", minWidth: isMobile ? 0 : 280 }}
+          onClick={() => setDestOpen((open) => !open)}
+        >
           <MapPin size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
             <p style={labelStyle}>Destination</p>
@@ -147,7 +154,10 @@ export default function SearchBar({
                   <motion.button
                     key={d}
                     whileHover={{ background: d === destination ? "#E6EEFA" : "#F5F7FF" }}
-                    onClick={() => { onDestinationChange(d); setDestOpen(false); }}
+                    onClick={() => {
+                      onDestinationChange(d);
+                      setDestOpen(false);
+                    }}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -173,8 +183,12 @@ export default function SearchBar({
           </AnimatePresence>
         </div>
 
-        {/* Dates */}
-        <div className="search-bar-field" ref={dateRef} style={fieldStyle} onClick={() => setDateOpen((o) => !o)}>
+        <div
+          className="search-bar-field"
+          ref={dateRef}
+          style={{ ...fieldStyle, flex: isMobile ? "1 1 calc(50% - 4px)" : undefined }}
+          onClick={() => setDateOpen((open) => !open)}
+        >
           <Calendar size={20} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Dates</p>
@@ -197,7 +211,10 @@ export default function SearchBar({
                   <motion.button
                     key={d}
                     whileHover={{ background: d === dateRange ? "#E6EEFA" : "#F5F7FF" }}
-                    onClick={() => { onDateRangeChange(d); setDateOpen(false); }}
+                    onClick={() => {
+                      onDateRangeChange(d);
+                      setDateOpen(false);
+                    }}
                     style={{
                       display: "block",
                       width: "100%",
@@ -220,8 +237,12 @@ export default function SearchBar({
           </AnimatePresence>
         </div>
 
-        {/* Travelers */}
-        <div className="search-bar-field" ref={travelRef} style={fieldStyle} onClick={() => setTravelOpen((o) => !o)}>
+        <div
+          className="search-bar-field"
+          ref={travelRef}
+          style={{ ...fieldStyle, flex: isMobile ? "1 1 calc(50% - 4px)" : undefined }}
+          onClick={() => setTravelOpen((open) => !open)}
+        >
           <Users size={16} color="#005CBD" style={{ flexShrink: 0 }} />
           <div>
             <p style={labelStyle}>Travelers</p>
@@ -240,7 +261,6 @@ export default function SearchBar({
                 style={{ ...dropdownStyle, minWidth: 240, padding: "16px" }}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Adults row */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 600, color: "#191C22", marginBottom: 2 }}>Adults</p>
@@ -248,7 +268,8 @@ export default function SearchBar({
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <motion.button
-                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => onAdultsChange(Math.max(1, adults - 1))}
                       style={{ width: 28, height: 28, borderRadius: 9999, border: "1px solid #C2C6D5", background: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                     >
@@ -256,7 +277,8 @@ export default function SearchBar({
                     </motion.button>
                     <span style={{ fontSize: 14, fontWeight: 600, color: "#191C22", minWidth: 20, textAlign: "center" }}>{adults}</span>
                     <motion.button
-                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => onAdultsChange(Math.min(10, adults + 1))}
                       style={{ width: 28, height: 28, borderRadius: 9999, border: "none", background: "#005CBD", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                     >
@@ -264,7 +286,7 @@ export default function SearchBar({
                     </motion.button>
                   </div>
                 </div>
-                {/* Rooms row */}
+
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 600, color: "#191C22", marginBottom: 2 }}>Rooms</p>
@@ -272,7 +294,8 @@ export default function SearchBar({
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <motion.button
-                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => onRoomsChange(Math.max(1, rooms - 1))}
                       style={{ width: 28, height: 28, borderRadius: 9999, border: "1px solid #C2C6D5", background: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                     >
@@ -280,7 +303,8 @@ export default function SearchBar({
                     </motion.button>
                     <span style={{ fontSize: 14, fontWeight: 600, color: "#191C22", minWidth: 20, textAlign: "center" }}>{rooms}</span>
                     <motion.button
-                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => onRoomsChange(Math.min(10, rooms + 1))}
                       style={{ width: 28, height: 28, borderRadius: 9999, border: "none", background: "#005CBD", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                     >
@@ -289,7 +313,8 @@ export default function SearchBar({
                   </div>
                 </div>
                 <motion.button
-                  whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setTravelOpen(false)}
                   style={{ marginTop: 16, width: "100%", padding: "8px 0", background: "#005CBD", color: "white", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}
                 >
@@ -300,13 +325,13 @@ export default function SearchBar({
           </AnimatePresence>
         </div>
 
-        {/* Update Search */}
         <motion.button
           className="search-bar-submit"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onSearch}
           style={{
+            flex: isMobile ? "1 1 100%" : undefined,
             paddingLeft: 32,
             paddingRight: 32,
             paddingTop: 12,

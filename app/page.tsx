@@ -61,7 +61,7 @@ export default function Home() {
 
       <main>
         <section className="mx-auto max-w-[1200px] px-4 pt-24 sm:px-6 sm:pt-[104px] xl:px-0">
-          <div className="relative flex min-h-[440px] items-center justify-center overflow-hidden sm:min-h-[520px]">
+          <div className="relative flex min-h-[440px] items-center justify-center sm:min-h-[520px]">
             <Image
               src="/image/Beach.png"
               alt=""

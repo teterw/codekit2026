@@ -8,7 +8,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const deals = [
   {
-    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=512&h=384&fit=crop&q=80",
+    image: "/Uluwatu luxury villa.png",
     badge: "60% OFF",
     name: "Mandala Sky Luxury Villas",
     location: "Uluwatu, Bali",
@@ -18,7 +18,7 @@ const deals = [
     newPrice: "$480",
   },
   {
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=512&h=384&fit=crop&q=80",
+    image: "/Ubud jungle retreat.png",
     badge: "45% OFF",
     name: "Emerald Jungle Retreat",
     location: "Ubud, Bali",
@@ -28,7 +28,7 @@ const deals = [
     newPrice: "$247",
   },
   {
-    image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=512&h=384&fit=crop&q=80",
+    image: "/Seminyak beach club resort.png",
     badge: "35% OFF",
     name: "Seminyak Shores Club",
     location: "Seminyak, Bali",

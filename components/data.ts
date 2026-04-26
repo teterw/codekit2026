@@ -24,7 +24,7 @@ export interface PropertyData {
 export const ALL_PROPERTIES: PropertyData[] = [
   {
     id: "1",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=512&h=400&fit=crop&q=80",
+    image: "/The Azure Serenity Resort.png",
     topBadge: "Top Choice",
     name: "The Azure Serenity Resort",
     location: "Ubud, Bali",
@@ -46,7 +46,7 @@ export const ALL_PROPERTIES: PropertyData[] = [
   },
   {
     id: "2",
-    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=512&h=400&fit=crop&q=80",
+    image: "/Lumina Beach Villas.png",
     name: "Lumina Beach Villas",
     location: "Seminyak, Bali",
     locationDetail: "Beachfront",
@@ -66,7 +66,7 @@ export const ALL_PROPERTIES: PropertyData[] = [
   },
   {
     id: "3",
-    image: "https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=512&h=400&fit=crop&q=80",
+    image: "/The Palms Sanctuary.png",
     name: "The Palms Sanctuary",
     location: "Nusa Dua, Bali",
     locationDetail: "0.8 km from beach",
@@ -86,7 +86,7 @@ export const ALL_PROPERTIES: PropertyData[] = [
   },
   {
     id: "4",
-    image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=512&h=400&fit=crop&q=80",
+    image: "/Kuta bay hotel.png",
     name: "Kuta Bay Hotel",
     location: "Kuta, Bali",
     locationDetail: "500m from beach",
@@ -106,7 +106,7 @@ export const ALL_PROPERTIES: PropertyData[] = [
   },
   {
     id: "5",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=512&h=400&fit=crop&q=80",
+    image: "/Seminyak beach club resort.png",
     name: "Seminyak Garden Suites",
     location: "Seminyak, Bali",
     locationDetail: "Central Seminyak",

@@ -1,13 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import HeroSearch from "@/components/HeroSearch";
 import {
-  Calendar,
   CalendarCheck,
   Headset,
   Mail,
-  MapPin,
-  Search,
   Tag,
 } from "lucide-react";
 
@@ -63,7 +61,7 @@ export default function Home() {
 
       <main>
         <section className="mx-auto max-w-[1200px] px-4 pt-24 sm:px-6 sm:pt-[104px] xl:px-0">
-          <div className="relative flex min-h-[440px] items-center justify-center overflow-hidden sm:min-h-[520px]">
+          <div className="relative flex min-h-[440px] items-center justify-center sm:min-h-[520px]">
             <Image
               src="/image/Beach.png"
               alt=""
@@ -83,30 +81,7 @@ export default function Home() {
                 the globe.
               </p>
 
-              <div className="mt-6 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-[#FFFFFF] p-2 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1 md:flex-row md:items-stretch">
-                <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-lg border border-[#6B7FC6] bg-[#E9E9E9] px-[13px]">
-                  <MapPin className="h-5 w-5 shrink-0 text-[#64748B]" />
-                  <input
-                    type="text"
-                    placeholder="Where to next?"
-                    className="min-w-0 flex-1 bg-transparent text-base text-[#191C22] outline-none placeholder:text-[#6B7280]"
-                  />
-                </label>
-                <button
-                  type="button"
-                  className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-lg border border-[#6B7FC6] bg-[#E9E9E9] px-[13px] text-left text-base text-[#191C22]"
-                >
-                  <Calendar className="h-5 w-5 shrink-0 text-[#64748B]" />
-                  <span className="truncate">Oct 12 - Oct 18</span>
-                </button>
-                <button
-                  type="button"
-                  className="flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2 rounded-lg bg-[#005CBD] px-8 text-lg font-bold text-[#FFFFFF] transition duration-200 hover:bg-[#004f9f] active:scale-[0.98] md:w-[151px] md:flex-none"
-                >
-                  <Search className="h-[18px] w-[18px]" />
-                  Search
-                </button>
-              </div>
+              <HeroSearch />
             </div>
           </div>
         </section>
